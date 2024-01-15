@@ -43,26 +43,30 @@ public class JsonNumber extends JsonEntity {
     /**
      * Gets the value of this JsonNumber.
      * @return Value of this JsonNumber as an int
+     * @throws NumberFormatException If this JsonNumber cannot be parsed as an int
      */
-    public int getInt() { return Integer.parseInt(value); }
+    public int getInt() throws NumberFormatException { return Integer.parseInt(value); }
 
     /**
      * Gets the value of this JsonNumber.
      * @return Value of this JsonNumber as a long
+     * @throws NumberFormatException If this JsonNumber cannot be parsed as a long
      */
-    public long getLong() { return Long.parseLong(value); }
+    public long getLong() throws NumberFormatException { return Long.parseLong(value); }
 
     /**
      * Gets the value of this JsonNumber.
      * @return Value of this JsonNumber as a float
+     * @throws NumberFormatException If this JsonNumber cannot be parsed as a float
      */
-    public float getFloat() { return Float.parseFloat(value); }
+    public float getFloat() throws NumberFormatException { return Float.parseFloat(value); }
 
     /**
      * Gets the value of this JsonNumber.
      * @return Value of this JsonNumber as a double
+     * @throws NumberFormatException If this JsonNumber cannot be parsed as a double
      */
-    public double getDouble() { return Double.parseDouble(value); }
+    public double getDouble() throws NumberFormatException { return Double.parseDouble(value); }
 
     /**
      * Sets the value of this JsonNumber.
