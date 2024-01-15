@@ -55,4 +55,40 @@ public class JsonTests {
 		JsonObject j = JsonObject.from(s);
 		System.out.println(j.toString(true));
 	}
+
+	@Test
+	public void testBadObjects() {
+		try {
+			JsonObject j = JsonObject.from("{");
+			throw new RuntimeException("Accepted bad object.");
+		} catch(ParseException ignored) {}
+
+		try {
+			JsonObject j = JsonObject.from("[]");
+			throw new RuntimeException("Accepted bad object.");
+		} catch(ParseException ignored) {}
+
+		try {
+			JsonObject j = JsonObject.from("\\{\\}");
+			throw new RuntimeException("Accepted bad object.");
+		} catch(ParseException ignored) {}
+	}
+
+	@Test
+	public void testBadArrays() {
+		try {
+			JsonArray j = JsonArray.from("[");
+			throw new RuntimeException("Accepted bad array.");
+		} catch(ParseException ignored) {}
+
+		try {
+			JsonArray j = JsonArray.from("{}");
+			throw new RuntimeException("Accepted bad array.");
+		} catch(ParseException ignored) {}
+
+		try {
+			JsonArray j = JsonArray.from("\\[\\]");
+			throw new RuntimeException("Accepted bad array.");
+		} catch(ParseException ignored) {}
+	}
 }
