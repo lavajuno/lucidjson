@@ -25,8 +25,8 @@ Serializing and deserializing a JSON object:
 import org.lavajuno.lucidjson.Json;
 import org.lavajuno.lucidjson.JsonObject;
 
-JsonObject o = Json.read("{ \"myKey\": \"myValue\" }");
-System.out.println(Json.write(o));
+JsonObject o = JsonObject.from("{ \"myKey\": \"myValue\" }");
+System.out.println(o.toString(true));
 ```
 
 ```
@@ -42,9 +42,9 @@ Modifying a JSON object:
 import org.lavajuno.lucidjson.JsonObject;
 import org.lavajuno.lucidjson.JsonString;
 
-JsonObject o = Json.read("{ \"myKey\": \"myValue\" }");
+JsonObject o = JsonObject.from("{ \"myKey\": \"myValue\" }");
 o.put("myKey2", new JsonString("myValue2"));
-System.out.println(Json.write(o));
+System.out.println(o.toString(true));
 ```
 
 ```

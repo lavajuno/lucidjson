@@ -30,29 +30,29 @@ public class JsonTests {
 				        null
 				    ]
 				}""";
-        JsonObject j = Json.read(s);
-        System.out.println(Json.write(j));
-        Assertions.assertEquals(s, Json.write(j));
+        JsonObject j = JsonObject.from(s);
+        System.out.println(j.toString(true));
+        Assertions.assertEquals(s, j.toString(true));
     }
 
 	@Test
 	public void testEmptyArray() throws ParseException {
-		String s = "{\"test\":[]}";
-		JsonObject j = Json.read(s);
-		System.out.println(Json.write(j));
+		String s = "[]";
+		JsonArray j = JsonArray.from(s);
+		System.out.println(j.toString(true));
 	}
 
 	@Test
 	public void testEmptyObject() throws ParseException {
 		String s = "{}";
-		JsonObject j = Json.read(s);
-		System.out.println(Json.write(j));
+		JsonObject j = JsonObject.from(s);
+		System.out.println(j.toString(true));
 	}
 
 	@Test
 	public void testEmptyString() throws ParseException {
 		String s = "{\"test\":\"\"}";
-		JsonObject j = Json.read(s);
-		System.out.println(Json.write(j));
+		JsonObject j = JsonObject.from(s);
+		System.out.println(j.toString(true));
 	}
 }
