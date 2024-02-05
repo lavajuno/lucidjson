@@ -32,8 +32,7 @@ public class JsonObject extends JsonEntity {
      * @param text JSON to parse
      * @throws ParseException If an error is encountered while parsing the input
      */
-    protected JsonObject(String text) throws ParseException {
-        Integer i = 0;
+    protected JsonObject(String text, Integer i) throws ParseException {
         values = parseValues(text, i);
     }
 
@@ -87,7 +86,6 @@ public class JsonObject extends JsonEntity {
     private static TreeMap<String, JsonEntity> parseValues(String text, Integer i) throws ParseException {
         TreeMap<String, JsonEntity> values = new TreeMap<>();
         while(text.charAt(i) != '{') { i++; }
-        i++;
         while(text.charAt(i) != '}') {
             Pair<String, JsonEntity> p = parsePair(text, i);
             values.put(p.first, p.second);

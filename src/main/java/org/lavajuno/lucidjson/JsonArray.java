@@ -31,8 +31,8 @@ public class JsonArray extends JsonEntity {
      * @param text JSON to parse
      * @throws ParseException If an error is encountered while parsing the input
      */
-    protected JsonArray(String text) throws ParseException {
-        values = parseValues(text.strip());
+    protected JsonArray(String text, Integer i) throws ParseException {
+        values = parseValues(text, i);
     }
 
     /**
@@ -82,11 +82,12 @@ public class JsonArray extends JsonEntity {
      * @return Vector created from the input
      * @throws ParseException If an error is encountered while parsing the input
      */
-    private static Vector<JsonEntity> parseValues(String text) throws ParseException {
+    private static Vector<JsonEntity> parseValues(String text, Integer i) throws ParseException {
         Vector<JsonEntity> values = new Vector<>();
-        Vector<String> raw_values = splitValues(text);
-        for(String i : raw_values) {
-            if(!i.isEmpty()) { values.add(parseEntity(i.strip())); }
+        while(text.charAt(i) != '[') { i++; }
+        while(text.charAt(i) != ']') {
+            JsonEntity p = parseEntity(text, i);
+            values.add(p);
         }
         return values;
     }

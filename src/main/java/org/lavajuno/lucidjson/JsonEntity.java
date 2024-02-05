@@ -170,19 +170,13 @@ public abstract class JsonEntity {
      */
     protected static JsonEntity parseEntity(String text, Integer i) throws ParseException {
         while(text.charAt(i) == ' ' || text.charAt(i) == '\t') { i++; }
-        JsonEntity entity = switch(text.charAt(i)) {
-            case '{' -> new JsonObject(text);
-            case '[' -> new JsonArray(text);
-            case '"' -> new JsonString(text);
-            case NUMBER -> new JsonNumber(text);
-            case LITERAL -> new JsonLiteral(text);
-            case NONE -> null;
+        return switch(text.charAt(i)) {
+            case '{' -> new JsonObject(text, i);
+            case '[' -> new JsonArray(text, i);
+            case '"' -> new JsonString(text, i);
+            case 't', 'f', 'n' -> new JsonLiteral(text, i);
+            default -> new JsonNumber(text, i)
         };
-        if(entity == null) {
-            printError(text, "Expected an entity.");
-            throw new ParseException("Expected an entity.", 0);
-        }
-        return entity;
     }
 
     /**
