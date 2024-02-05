@@ -168,11 +168,12 @@ public abstract class JsonEntity {
      * @return JsonEntity created from the input.
      * @throws ParseException If the input does not match any type of entity
      */
-    protected static JsonEntity parseEntity(String text) throws ParseException {
-        JsonEntity entity = switch(match(text)) {
-            case OBJECT -> new JsonObject(text);
-            case ARRAY -> new JsonArray(text);
-            case STRING -> new JsonString(text);
+    protected static JsonEntity parseEntity(String text, Integer i) throws ParseException {
+        while(text.charAt(i) == ' ' || text.charAt(i) == '\t') { i++; }
+        JsonEntity entity = switch(text.charAt(i)) {
+            case '{' -> new JsonObject(text);
+            case '[' -> new JsonArray(text);
+            case '"' -> new JsonString(text);
             case NUMBER -> new JsonNumber(text);
             case LITERAL -> new JsonLiteral(text);
             case NONE -> null;
@@ -190,7 +191,7 @@ public abstract class JsonEntity {
      * @return Key-value pair created from the input.
      * @throws ParseException If the input does not match a pair containing a String and JsonEntity
      */
-    protected static Pair<String, JsonEntity> parsePair(String text) throws ParseException {
+    protected static Pair<String, JsonEntity> parsePair(String text, Integer i) throws ParseException {
         if(text.matches(PAIR_RGX)) {
             int split_index = findNext(text, ':', 0);
             if(split_index == -1) {

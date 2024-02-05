@@ -33,7 +33,8 @@ public class JsonObject extends JsonEntity {
      * @throws ParseException If an error is encountered while parsing the input
      */
     protected JsonObject(String text) throws ParseException {
-        values = parseValues(text.strip());
+        Integer i = 0;
+        values = parseValues(text, i);
     }
 
     /**
@@ -83,14 +84,13 @@ public class JsonObject extends JsonEntity {
      * @return Key-value map created from the input
      * @throws ParseException If an error is encountered while parsing the input
      */
-    private static TreeMap<String, JsonEntity> parseValues(String text) throws ParseException {
+    private static TreeMap<String, JsonEntity> parseValues(String text, Integer i) throws ParseException {
         TreeMap<String, JsonEntity> values = new TreeMap<>();
-        Vector<String> raw_values = splitValues(text);
-        for(String i : raw_values) {
-            if(!i.isEmpty()) {
-                Pair<String, JsonEntity> p = parsePair(i.strip());
-                values.put(p.first, p.second);
-            }
+        while(text.charAt(i) != '{') { i++; }
+        i++;
+        while(text.charAt(i) != '}') {
+            Pair<String, JsonEntity> p = parsePair(text, i);
+            values.put(p.first, p.second);
         }
         return values;
     }
