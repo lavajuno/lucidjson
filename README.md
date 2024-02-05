@@ -13,7 +13,7 @@ Straightforward JSON serialization &amp; deserialization library for Java.
 - Creation and modification of objects
 - Supports minimal and indented multiline output
 - Simple, documented interface
-- Error reporting (to be improved)
+- Descriptive error reporting
 
 ## Usage
 
