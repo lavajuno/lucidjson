@@ -1,5 +1,7 @@
 package org.lavajuno.lucidjson;
 
+import org.lavajuno.lucidjson.util.Index;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -29,9 +31,10 @@ public class JsonArray extends JsonEntity {
     /**
      * Constructs a JsonArray by parsing the input.
      * @param text JSON to parse
+     * @param i Index of next character to parse
      * @throws ParseException If an error is encountered while parsing the input
      */
-    protected JsonArray(String text, Integer i) throws ParseException {
+    protected JsonArray(String text, Index i) throws ParseException {
         values = parseValues(text, i);
     }
 
@@ -43,11 +46,8 @@ public class JsonArray extends JsonEntity {
      */
     public static JsonArray from(String text) throws ParseException {
         String line = text.replace("\n", "");
-        if(!line.matches(ARRAY_RGX)) {
-            printError(line, "Expected an array.");
-            throw new ParseException("Expected an array.", 0);
-        }
-        return new JsonArray(line);
+        Index i = new Index(0);
+        return new JsonArray(line, i);
     }
 
     /**
@@ -79,15 +79,36 @@ public class JsonArray extends JsonEntity {
 
     /**
      * @param text JSON to parse
+     * @param i Index of next character to parse
      * @return Vector created from the input
      * @throws ParseException If an error is encountered while parsing the input
      */
-    private static Vector<JsonEntity> parseValues(String text, Integer i) throws ParseException {
+    private static Vector<JsonEntity> parseValues(String text, Index i) throws ParseException {
         Vector<JsonEntity> values = new Vector<>();
-        while(text.charAt(i) != '[') { i++; }
-        while(text.charAt(i) != ']') {
-            JsonEntity p = parseEntity(text, i);
-            values.add(p);
+        skipSpace(text, i);
+        if(text.charAt(i.pos) != '[') {
+            throwParseError(text, i.pos, "Parsing array, expected a '['.");
+        }
+        i.pos++;
+        if(i.pos >= text.length()) {
+            throwParseError(text, i.pos, "Parsing array, reached end of input.");
+        }
+        if(text.charAt(i.pos) == ']') {
+            i.pos++;
+            return new Vector<>();
+        }
+        skipSpace(text, i);
+        while(i.pos < text.length()) {
+            values.add(parseEntity(text, i));
+            skipSpace(text, i);
+            if(text.charAt(i.pos) == ']') {
+                i.pos++;
+                break;
+            }
+            if(text.charAt(i.pos) != ',') {
+                throwParseError(text , i.pos, "Parsing array, expected a ','.");
+            }
+            i.pos++;
         }
         return values;
     }
