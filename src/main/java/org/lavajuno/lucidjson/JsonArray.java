@@ -91,13 +91,16 @@ public class JsonArray extends JsonEntity {
         }
         i.pos++;
         if(i.pos >= text.length()) {
+            // Handle end of input after opening {
             throwParseError(text, i.pos, "Parsing array, reached end of input.");
         }
         if(text.charAt(i.pos) == ']') {
+            // Handle empty arrays
             i.pos++;
             return new Vector<>();
         }
         skipSpace(text, i);
+        // Parse this JsonArray's values
         while(i.pos < text.length()) {
             values.add(parseEntity(text, i));
             skipSpace(text, i);
@@ -110,6 +113,7 @@ public class JsonArray extends JsonEntity {
             }
             i.pos++;
         }
+
         return values;
     }
 

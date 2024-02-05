@@ -29,6 +29,9 @@ public class JsonString extends JsonEntity {
             }
             i.pos++;
         }
+        if(i.pos == text.length()) {
+            throwParseError(text, i.pos, "Parsing string, reached end of input.");
+        }
         value = text.substring(begin, i.pos);
         i.pos++;
     }

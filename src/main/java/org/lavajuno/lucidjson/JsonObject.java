@@ -91,26 +91,32 @@ public class JsonObject extends JsonEntity {
         }
         i.pos++;
         if(i.pos >= text.length()) {
+            // Handle end of input after opening {
             throwParseError(text, i.pos, "Parsing object, reached end of input.");
         }
         if(text.charAt(i.pos) == '}') {
+            // Handle empty objects
             i.pos++;
             return new TreeMap<>();
         }
         skipSpace(text, i);
+        // Parse this JsonObject's values
         while(i.pos < text.length()) {
             Pair<String, JsonEntity> p = parsePair(text, i);
             values.put(p.first, p.second);
             skipSpace(text, i);
             if(text.charAt(i.pos) == '}') {
+                // Object close
                 i.pos++;
                 break;
             }
             if(text.charAt(i.pos) != ',') {
+                // Not the last item, but no comma
                 throwParseError(text , i.pos, "Parsing object, expected a ','.");
             }
             i.pos++;
         }
+
         return values;
     }
 
