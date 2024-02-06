@@ -15,28 +15,39 @@ Straightforward JSON serialization &amp; deserialization library for Java.
 - Simple, documented interface
 - Descriptive error reporting
 
-## Usage
+## Usage Examples
 
 > Note: These are very basic examples and will be updated to include more realistic use cases.
 
-Serializing and deserializing a JSON object:
+Deserializing a JSON object from a string:
 
 ```java
-import org.lavajuno.lucidjson.Json;
 import org.lavajuno.lucidjson.JsonObject;
 
-JsonObject o = JsonObject.from("{ \"myKey\": \"myValue\" }");
-System.out.println(o.toString(true));
+String s = "{ \"myKey\": \"myValue\" }";
+JsonObject o = JsonObject.from(s);
 ```
 
-```
-Output:
-{
-    "myKey": "myValue"
-}
+Deserializing a JSON object from a file:
+```java
+import org.lavajuno.lucidjson.JsonObject;
+
+String path = "users.json";
+JsonObject o = JsonObject.fromFile(path);
 ```
 
-Modifying a JSON object:
+Serializing a JSON object to a string:
+```java
+import org.lavajuno.lucidjson.JsonObject;
+
+String path = "users.json";
+JsonObject o = JsonObject.fromFile(path);
+String s = o.toString(true);
+```
+
+> Note: The above methods are identical for JSON arrays.
+
+Modifying JSON objects:
 
 ```java
 import org.lavajuno.lucidjson.JsonObject;
@@ -44,16 +55,12 @@ import org.lavajuno.lucidjson.JsonString;
 
 JsonObject o = JsonObject.from("{ \"myKey\": \"myValue\" }");
 o.put("myKey2", new JsonString("myValue2"));
-System.out.println(o.toString(true));
 ```
 
-```
-Output:
-{
-    "myKey": "myValue",
-    "myKey2": "myValue2"
-}
-```
+## Use Cases
+lucidjson is designed to allow you to quickly write custom JSON serialization & deserialization
+functions for classes. It can also be used to modify JSON documents without loading them
+into a rigid class structure.
 
 ## Licensing
 
