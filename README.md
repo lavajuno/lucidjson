@@ -64,4 +64,4 @@ into a rigid class structure.
 
 ## Licensing
 
-LucidJSON is Free and Open Source Software, and is released under the MIT license. (See [`LICENSE`](LICENSE))
+lucidjson is Free and Open Source Software, and is released under the MIT license. (See [`LICENSE`](LICENSE))
