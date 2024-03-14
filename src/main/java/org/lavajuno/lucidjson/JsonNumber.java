@@ -121,8 +121,8 @@ public class JsonNumber extends JsonEntity {
     }
 
     @Override
-    public String toString() { return value; }
+    public String toJsonString() { return value; }
 
     @Override
-    protected String toString(int indent) { return this.toString(); }
+    protected String toJsonString(int indent) { return this.toJsonString(); }
 }

@@ -56,11 +56,11 @@ public class JsonLiteral extends JsonEntity {
     public Boolean getValue() { return value; }
 
     @Override
-    public String toString() {
+    public String toJsonString() {
         if(value == null) { return "null"; }
         return value ? "true" : "false";
     }
 
     @Override
-    protected String toString(int indent) { return this.toString(); }
+    protected String toJsonString(int indent) { return this.toJsonString(); }
 }

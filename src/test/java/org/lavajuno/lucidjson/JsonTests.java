@@ -31,64 +31,64 @@ public class JsonTests {
 				    ]
 				}""";
         JsonObject j = JsonObject.from(s);
-        System.out.println(j.toString(true));
-        Assertions.assertEquals(s, j.toString(true));
+        System.out.println(j.toJsonString(true));
+        Assertions.assertEquals(s, j.toJsonString(true));
     }
 
 	@Test
 	public void testEmptyArray() throws ParseException {
 		String s = "[]";
 		JsonArray j = JsonArray.from(s);
-		System.out.println(j.toString(true));
+		System.out.println(j.toJsonString(true));
 	}
 
 	@Test
 	public void testEmptyObject() throws ParseException {
 		String s = "{}";
 		JsonObject j = JsonObject.from(s);
-		System.out.println(j.toString(true));
+		System.out.println(j.toJsonString(true));
 	}
 
 	@Test
 	public void testEmptyString() throws ParseException {
 		String s = "{\"test\":\"\"}";
 		JsonObject j = JsonObject.from(s);
-		System.out.println(j.toString(true));
+		System.out.println(j.toJsonString(true));
 	}
 
 	@Test
 	public void testBadObjects() {
-		try {
-			JsonObject j = JsonObject.from("{");
-			throw new RuntimeException("Accepted bad object.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonObject ignored = JsonObject.from("{"); }
+		);
 
-		try {
-			JsonObject j = JsonObject.from("[]");
-			throw new RuntimeException("Accepted bad object.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonObject ignored = JsonObject.from("[]"); }
+		);
 
-		try {
-			JsonObject j = JsonObject.from("\\{\\}");
-			throw new RuntimeException("Accepted bad object.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonObject ignored = JsonObject.from("\\{\\}"); }
+		);
 	}
 
 	@Test
 	public void testBadArrays() {
-		try {
-			JsonArray j = JsonArray.from("[");
-			throw new RuntimeException("Accepted bad array.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonArray ignored = JsonArray.from("["); }
+		);
 
-		try {
-			JsonArray j = JsonArray.from("{}");
-			throw new RuntimeException("Accepted bad array.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonArray ignored = JsonArray.from("{}"); }
+		);
 
-		try {
-			JsonArray j = JsonArray.from("\\[\\]");
-			throw new RuntimeException("Accepted bad array.");
-		} catch(ParseException ignored) {}
+		Assertions.assertThrows(
+				ParseException.class,
+				() -> { JsonArray ignored = JsonArray.from("\\[\\]"); }
+		);
 	}
 }
