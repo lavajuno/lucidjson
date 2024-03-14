@@ -53,7 +53,7 @@ public class JsonLiteral extends JsonEntity {
      * Gets the value of this JsonLiteral.
      * @return Value of this JsonLiteral (true/false/null)
      */
-    public Boolean getValue() { return value; }
+    public Boolean value() { return value; }
 
     @Override
     public String toJsonString() {
