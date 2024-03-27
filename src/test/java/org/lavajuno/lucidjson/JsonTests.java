@@ -2,7 +2,6 @@ package org.lavajuno.lucidjson;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.lavajuno.lucidjson.error.JsonParseException;
 
 import java.text.ParseException;
 
@@ -12,7 +11,7 @@ public class JsonTests {
     public void testJson() throws ParseException {
         String s = """
 				{
-				    "0_testObje"ctValues": {
+				    "0_testObjectValues": {
 				        "0_testString": "StringValue",
 				        "1_testInt": 3,
 				        "2_testFloat": -7.2,
@@ -76,8 +75,7 @@ public class JsonTests {
 	}
 
 	@Test
-	public void testBadArrays() throws JsonParseException {
-		JsonArray ignored1 = JsonArray.from("{}");
+	public void testBadArrays() {
 		Assertions.assertThrows(
 				ParseException.class,
 				() -> { JsonArray ignored = JsonArray.from("["); }
